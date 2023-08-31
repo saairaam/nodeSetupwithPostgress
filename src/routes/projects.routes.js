@@ -5,7 +5,7 @@ import {
   updateProject,
   deleteProject,
   getProject,
-  getProjectWorkpackages,
+  getProjectModules,
 } from "../controllers/projects.controller.js";
 
 const router = Router();
@@ -15,6 +15,6 @@ router.post("/", createProject);
 router.put("/:id", updateProject);
 router.delete("/:id", deleteProject);
 router.get("/:id", getProject);
-router.get("/:id/workpackages", getProjectWorkpackages);
+router.get("/:id/modules", getProjectModules);
 
 export default router;

@@ -1,12 +1,14 @@
 import { Project } from "../models/Project.js";
-import { Workpackage } from "../models/Workpackage.js";
+import { Module } from "../models/Modules.js";
 
 export const getProjects = async (req, res) => {
+  console.log("get projects ");
   try {
     const projects = await Project.findAll({
       attributes: ["id", "title", "description"],
     });
     res.json(projects);
+    console.log("got projects");
   } catch (error) {}
 };
 
@@ -14,12 +16,13 @@ export const getProject = async (req, res) => {
   const { id } = req.params;
 
   try {
+    console.log("get project " + id);
     const project = await Project.findOne({
       where: {
         id,
       },
     });
-    console.log("project:", project);
+    console.log("got project " + id);
     res.json(project);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -73,11 +76,11 @@ export const deleteProject = async (req, res) => {
   }
 };
 
-export const getProjectWorkpackages = async (req, res) => {
+export const getProjectModules = async (req, res) => {
   const { id } = req.params;
   console.log("project id is: ", id);
   try {
-    const workpackages = await Workpackage.findAll({
+    const Module = await Module.findAll({
       attributes: [
         "id",
         "projectId",
@@ -88,8 +91,8 @@ export const getProjectWorkpackages = async (req, res) => {
       ],
       where: { projectId: id },
     });
-    console.log("workpackages; ", workpackages);
-    res.json(workpackages);
+    console.log("module; ", Module);
+    res.json(Module);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
