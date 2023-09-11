@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.10.xsd">
+
+   
+    <changeSet id="create-sequence-student_id" author="yourname">
+        <createSequence sequenceName="student_id_seq" startValue="1" incrementBy="1"/>
+    </changeSet>
+    
+    <!-- Create Student Table -->
+  <changeSet id="create-student-table" author="yourname">
+        <createTable tableName="students">
+            <column name="ID" type="BIGINT" defaultValueComputed="nextval('student_id_seq')" >
+                <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="age" type="INT"/>
+            <column name="dob" type="DATE"/>
+            <column name="email" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+
+    <!-- Create Course Table -->
+    <changeSet id="create-course-table" author="yourname">
+        <createTable tableName="courses">
+            <column name="ID" type="BIGINT">
+             <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+           
+        </createTable>
+    </changeSet>
+    
+    <!-- Create Teacher Table -->
+    <changeSet id="create-teacher-table" author="yourname">
+        <createTable tableName="teachers">
+            <column name="ID" type="BIGINT">
+            <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            
+        </createTable>
+    </changeSet>
+
+    <!-- Create Subject Table -->
+    <changeSet id="create-subject-table" author="yourname">
+        <createTable tableName="subjects">
+            <column name="ID" type="BIGINT">
+            <constraints primaryKey="true" unique="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            
+        </createTable>
+    </changeSet>
+
+    <!-- Create Enrollment Table -->
+    <changeSet id="create-enrollment-table" author="yourname">
+        <createTable tableName="enrollments">
+            <column name="ID" type="BIGINT">
+            <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="student_id" type="BIGINT">
+            <constraints foreignKeyName="fk_student_id" references="students(ID)" />
+            </column>
+            <column name="course_id" type="BIGINT">
+            <constraints foreignKeyName="fk_course_id" references="courses(ID)" />
+            </column>
+        </createTable>
+    </changeSet>
+
+
+</databaseChangeLog>

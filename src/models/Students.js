@@ -36,6 +36,7 @@ export const Student = sequelize.define(
 );
 Student.hasMany(Enrollment, { foreignKey: "student_id" });
 Student.hasMany(Mark, { foreignKey: "student_id" });
+
 Mark.belongsTo(Student, { foreignKey: "student_id" });
 Student.afterCreate(async (student, options) => {
   try {
